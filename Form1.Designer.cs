@@ -27,6 +27,50 @@
         // İşlem paneli
         private System.Windows.Forms.Panel pnlOperations;
         private System.Windows.Forms.Label lblOperationTitle;
+        
+        // Hesap Açma Kontrolleri
+        private System.Windows.Forms.Panel pnlCreateAccount;
+        private System.Windows.Forms.Label lblAccountType;
+        private System.Windows.Forms.ComboBox cmbAccountType;
+        private System.Windows.Forms.Button btnCreateAccountSubmit;
+        private System.Windows.Forms.Label lblCreateAccountTitle;
+        
+        // Para Yatırma Kontrolleri
+        private System.Windows.Forms.Panel pnlDeposit;
+        private System.Windows.Forms.Label lblDepositTitle;
+        private System.Windows.Forms.Label lblDepositAccount;
+        private System.Windows.Forms.ComboBox cmbDepositAccount;
+        private System.Windows.Forms.Label lblDepositAmount;
+        private System.Windows.Forms.TextBox txtDepositAmount;
+        private System.Windows.Forms.Button btnDepositSubmit;
+        
+        // Para Çekme Kontrolleri
+        private System.Windows.Forms.Panel pnlWithdraw;
+        private System.Windows.Forms.Label lblWithdrawTitle;
+        private System.Windows.Forms.Label lblWithdrawAccount;
+        private System.Windows.Forms.ComboBox cmbWithdrawAccount;
+        private System.Windows.Forms.Label lblWithdrawAmount;
+        private System.Windows.Forms.TextBox txtWithdrawAmount;
+        private System.Windows.Forms.Button btnWithdrawSubmit;
+        
+        // Para Transfer Kontrolleri
+        private System.Windows.Forms.Panel pnlTransferMoney;
+        private System.Windows.Forms.Label lblTransferTitle;
+        private System.Windows.Forms.Label lblFromAccount;
+        private System.Windows.Forms.ComboBox cmbFromAccount;
+        private System.Windows.Forms.Label lblToAccount;
+        private System.Windows.Forms.TextBox txtToAccount;
+        private System.Windows.Forms.Label lblTransferAmount;
+        private System.Windows.Forms.TextBox txtTransferAmount;
+        private System.Windows.Forms.Button btnTransferSubmit;
+        
+        // Hesap Bilgileri Kontrolleri
+        private System.Windows.Forms.Panel pnlAccountInfo;
+        private System.Windows.Forms.Label lblAccountInfoTitle;
+        private System.Windows.Forms.DataGridView dgvAccounts;
+        private System.Windows.Forms.DataGridView dgvTransactions;
+        private System.Windows.Forms.Label lblAccountsLabel;
+        private System.Windows.Forms.Label lblTransactionsLabel;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -168,6 +212,7 @@
             this.btnCreateAccount.TabIndex = 0;
             this.btnCreateAccount.Text = "💳 Hesap Aç";
             this.btnCreateAccount.UseVisualStyleBackColor = false;
+            this.btnCreateAccount.Click += new System.EventHandler(this.btnCreateAccount_Click);
             
             // 
             // btnDeposit
@@ -183,6 +228,7 @@
             this.btnDeposit.TabIndex = 1;
             this.btnDeposit.Text = "💰 Para Yatır";
             this.btnDeposit.UseVisualStyleBackColor = false;
+            this.btnDeposit.Click += new System.EventHandler(this.btnDeposit_Click);
             
             // 
             // btnWithdraw
@@ -198,6 +244,7 @@
             this.btnWithdraw.TabIndex = 2;
             this.btnWithdraw.Text = "💸 Para Çek";
             this.btnWithdraw.UseVisualStyleBackColor = false;
+            this.btnWithdraw.Click += new System.EventHandler(this.btnWithdraw_Click);
             
             // 
             // btnTransfer
@@ -213,6 +260,7 @@
             this.btnTransfer.TabIndex = 3;
             this.btnTransfer.Text = "🔄 Para Transfer";
             this.btnTransfer.UseVisualStyleBackColor = false;
+            this.btnTransfer.Click += new System.EventHandler(this.btnTransfer_Click);
             
             // 
             // btnAccountInfo
@@ -228,6 +276,7 @@
             this.btnAccountInfo.TabIndex = 4;
             this.btnAccountInfo.Text = "📊 Hesap Bilgileri";
             this.btnAccountInfo.UseVisualStyleBackColor = false;
+            this.btnAccountInfo.Click += new System.EventHandler(this.btnAccountInfo_Click);
             
             // 
             // btnLogout
