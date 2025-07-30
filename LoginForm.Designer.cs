@@ -299,7 +299,7 @@ namespace SmartBankingAutomation
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "🏦 Smart Banking - Giriş / Kayıt";
+            this.Text = "🏛️ Türkiye Digital Bank - Giriş / Kayıt";
             this.groupRegister.ResumeLayout(false);
             this.groupRegister.PerformLayout();
             this.groupLogin.ResumeLayout(false);

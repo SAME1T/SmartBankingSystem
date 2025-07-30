@@ -22,6 +22,8 @@
         private System.Windows.Forms.Button btnWithdraw;
         private System.Windows.Forms.Button btnTransfer;
         private System.Windows.Forms.Button btnAccountInfo;
+        private System.Windows.Forms.Button btnCreditCard;
+        private System.Windows.Forms.Button btnCurrency;
         private System.Windows.Forms.Button btnLogout;
         
         // İşlem paneli
@@ -71,6 +73,23 @@
         private System.Windows.Forms.DataGridView dgvTransactions;
         private System.Windows.Forms.Label lblAccountsLabel;
         private System.Windows.Forms.Label lblTransactionsLabel;
+        
+        // Kredi Kartı Kontrolleri
+        private System.Windows.Forms.Panel pnlCreditCard;
+        private System.Windows.Forms.Label lblCreditCardTitle;
+        private System.Windows.Forms.Button btnApplyCreditCard;
+        private System.Windows.Forms.Button btnCreditCardPayment;
+        private System.Windows.Forms.Button btnCreditCardTransactions;
+        private System.Windows.Forms.Button btnCreditCardHistory;
+        private System.Windows.Forms.DataGridView dgvCreditCards;
+
+        // Döviz İşlemleri Kontrolleri
+        private System.Windows.Forms.Panel pnlCurrency;
+        private System.Windows.Forms.Label lblCurrencyTitle;
+        private System.Windows.Forms.Button btnBuyCurrency;
+        private System.Windows.Forms.Button btnSellCurrency;
+        private System.Windows.Forms.DataGridView dgvCurrencyRates;
+        private System.Windows.Forms.DataGridView dgvMyPortfolio;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -99,6 +118,7 @@
             this.btnWithdraw = new System.Windows.Forms.Button();
             this.btnTransfer = new System.Windows.Forms.Button();
             this.btnAccountInfo = new System.Windows.Forms.Button();
+            this.btnCreditCard = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.pnlOperations = new System.Windows.Forms.Panel();
             this.lblOperationTitle = new System.Windows.Forms.Label();
@@ -138,13 +158,13 @@
             // lblWelcome
             // 
             this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblWelcome.ForeColor = System.Drawing.Color.White;
-            this.lblWelcome.Location = new System.Drawing.Point(130, 20);
+            this.lblWelcome.Location = new System.Drawing.Point(280, 20);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(300, 32);
+            this.lblWelcome.Size = new System.Drawing.Size(500, 80);
             this.lblWelcome.TabIndex = 1;
-            this.lblWelcome.Text = "🏦 Smart Banking'e Hoş Geldiniz";
+            this.lblWelcome.Text = "🏛️ TÜRKİYE DİJİTAL BANK \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   💎 MODERN BANKACILIK • GÜVENLİ • HIZLI • KOLAYDİJİTAL";
             
             // 
             // lblUserName
@@ -191,12 +211,15 @@
             this.pnlMainMenu.Controls.Add(this.btnWithdraw);
             this.pnlMainMenu.Controls.Add(this.btnTransfer);
             this.pnlMainMenu.Controls.Add(this.btnAccountInfo);
+            this.pnlMainMenu.Controls.Add(this.btnCreditCard);
+            this.pnlMainMenu.Controls.Add(this.btnCurrency);
             this.pnlMainMenu.Controls.Add(this.btnLogout);
             this.pnlMainMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMainMenu.Location = new System.Drawing.Point(0, 120);
             this.pnlMainMenu.Name = "pnlMainMenu";
-            this.pnlMainMenu.Size = new System.Drawing.Size(250, 480);
+            this.pnlMainMenu.Size = new System.Drawing.Size(250, 600);
             this.pnlMainMenu.TabIndex = 1;
+            this.pnlMainMenu.AutoScroll = true; // Scroll özelliği eklendi
             
             // 
             // btnCreateAccount
@@ -279,6 +302,39 @@
             this.btnAccountInfo.Click += new System.EventHandler(this.btnAccountInfo_Click);
             
             // 
+            // btnCreditCard
+            // 
+            this.btnCreditCard.BackColor = System.Drawing.Color.FromArgb(220, 53, 69);
+            this.btnCreditCard.FlatAppearance.BorderSize = 0;
+            this.btnCreditCard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreditCard.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnCreditCard.ForeColor = System.Drawing.Color.White;
+            this.btnCreditCard.Location = new System.Drawing.Point(20, 380);
+            this.btnCreditCard.Name = "btnCreditCard";
+            this.btnCreditCard.Size = new System.Drawing.Size(210, 50);
+            this.btnCreditCard.TabIndex = 5;
+            this.btnCreditCard.Text = "💳 Kredi Kartı";
+            this.btnCreditCard.UseVisualStyleBackColor = false;
+            this.btnCreditCard.Click += new System.EventHandler(this.btnCreditCard_Click);
+            
+            // 
+            // btnCurrency
+            // 
+            this.btnCurrency = new System.Windows.Forms.Button();
+            this.btnCurrency.BackColor = System.Drawing.Color.FromArgb(255, 193, 7);
+            this.btnCurrency.FlatAppearance.BorderSize = 0;
+            this.btnCurrency.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCurrency.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnCurrency.ForeColor = System.Drawing.Color.White;
+            this.btnCurrency.Location = new System.Drawing.Point(20, 420);
+            this.btnCurrency.Name = "btnCurrency";
+            this.btnCurrency.Size = new System.Drawing.Size(210, 50);
+            this.btnCurrency.TabIndex = 6;
+            this.btnCurrency.Text = "💰 Döviz İşlemleri";
+            this.btnCurrency.UseVisualStyleBackColor = false;
+            this.btnCurrency.Click += new System.EventHandler(this.btnCurrency_Click);
+            
+            // 
             // btnLogout
             // 
             this.btnLogout.BackColor = System.Drawing.Color.FromArgb(108, 117, 125);
@@ -286,10 +342,10 @@
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnLogout.ForeColor = System.Drawing.Color.White;
-            this.btnLogout.Location = new System.Drawing.Point(20, 400);
+            this.btnLogout.Location = new System.Drawing.Point(20, 480);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(210, 50);
-            this.btnLogout.TabIndex = 5;
+            this.btnLogout.TabIndex = 7;
             this.btnLogout.Text = "🚪 Çıkış Yap";
             this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
@@ -323,7 +379,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.ClientSize = new System.Drawing.Size(1000, 720);
             this.Controls.Add(this.pnlOperations);
             this.Controls.Add(this.pnlMainMenu);
             this.Controls.Add(this.pnlUserInfo);
@@ -331,7 +387,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "🏦 Smart Banking - Ana Sayfa";
+            this.Text = "🏛️ Türkiye Digital Bank - Dijital Bankacılık Sistemi";
             this.pnlUserInfo.ResumeLayout(false);
             this.pnlUserInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picUserAvatar)).EndInit();

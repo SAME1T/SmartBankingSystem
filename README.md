@@ -11,10 +11,11 @@ Modern ve kullanıcı dostu bir banka otomasyonu uygulaması. C# Windows Forms v
 
 ### Ana Sayfa
 - 👤 Kullanıcı bilgileri paneli
-- 💳 Hesap açma
+- 💳 Hesap açma (Vadeli/Vadesiz) - Vade süresi ve faiz seçimi
 - 💰 Para yatırma/çekme
-- 🔄 Para transferi
-- 📊 Hesap bilgileri
+- 🔄 Gelişmiş para transferi - Yapıştırma, onaylama, alıcı gösterme
+- 📊 Hesap bilgileri - Kopyalama özelliği
+- 💳 Kredi kartı işlemleri
 
 ## 🚀 Özellikler
 
@@ -26,12 +27,38 @@ Modern ve kullanıcı dostu bir banka otomasyonu uygulaması. C# Windows Forms v
 
 ### 💼 Banka İşlemleri
 - ✅ Müşteri kaydı ve yönetimi
-- ✅ Hesap oluşturma (Vadeli/Vadesiz)
+- ✅ **Gelişmiş hesap oluşturma** (Vadeli/Vadesiz)
+  - 📅 Vadeli hesap için vade süresi seçimi (1-24 ay)
+  - 💰 Faiz oranı seçimi (%15-%28)
+  - 🎯 Otomatik vade sonu tutarı hesaplama
+  - 💵 Başlangıç tutarı belirleme
 - ✅ Para yatırma işlemleri
 - ✅ Para çekme işlemleri
-- ✅ Hesaplar arası transfer
+- ✅ **Gelişmiş hesaplar arası transfer**
+  - 📥 Hesap numarası yapıştırma özelliği
+  - 👤 Alıcının ismini otomatik gösterme
+  - ✅ Transfer öncesi detaylı onaylama ekranı
 - ✅ İşlem geçmişi takibi
-- ✅ Bakiye sorgulama
+- ✅ **Gelişmiş bakiye sorgulama**
+  - 📋 Hesap numarası kopyalama özelliği
+  - 📊 Detaylı hesap bilgileri görüntüleme
+
+### 💳 Kredi Kartı İşlemleri
+- ✅ **Kredi kartı başvurusu**
+  - 📝 Yeni kredi kartı talep etme
+  - 🏦 Otomatik kart numarası oluşturma
+  - 💰 Kredi limiti belirleme
+- ✅ **Kredi kartı ödeme işlemleri**
+  - 💰 Borç ödeme sistemi
+  - 📊 Mevcut borç durumu görüntüleme
+- ✅ **Kredi kartı harcama işlemleri**
+  - 🛒 Alışveriş simülasyonu
+  - 📈 Harcama geçmişi takibi
+  - 🏪 Mağaza bilgileri kaydetme
+- ✅ **Kredi kartı yönetimi**
+  - 📋 Tüm kartları görüntüleme
+  - 💳 Kart detayları ve limitleri
+  - 📊 Faiz oranı takibi
 
 ### 🎨 Kullanıcı Arayüzü
 - ✅ Modern flat tasarım
@@ -101,6 +128,9 @@ CREATE TABLE Accounts (
     Balance DECIMAL(10,2) DEFAULT 0.00,
     AccountType TEXT DEFAULT 'Vadeli',
     CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    MaturityDate DATETIME,              -- Vadeli hesap vade tarihi
+    InterestRate DECIMAL(5,2) DEFAULT 0.00,  -- Faiz oranı
+    MaturityAmount DECIMAL(10,2) DEFAULT 0.00, -- Vade sonu tutarı
     FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
 );
 ```
@@ -118,6 +148,38 @@ CREATE TABLE Transactions (
 );
 ```
 
+### CreditCards Tablosu
+```sql
+CREATE TABLE CreditCards (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    CustomerId INTEGER NOT NULL,
+    CardNumber TEXT NOT NULL UNIQUE,    -- Kredi kartı numarası
+    CardName TEXT NOT NULL,             -- Kart adı
+    CreditLimit DECIMAL(10,2) DEFAULT 0.00,   -- Kredi limiti
+    AvailableLimit DECIMAL(10,2) DEFAULT 0.00, -- Kullanılabilir limit
+    Debt DECIMAL(10,2) DEFAULT 0.00,    -- Mevcut borç
+    InterestRate DECIMAL(5,2) DEFAULT 2.50,   -- Faiz oranı
+    CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ExpiryDate DATETIME,                -- Son kullanma tarihi
+    IsActive INTEGER DEFAULT 1,         -- Kart aktif mi
+    FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
+);
+```
+
+### CreditCardTransactions Tablosu
+```sql
+CREATE TABLE CreditCardTransactions (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    CreditCardId INTEGER NOT NULL,
+    TransactionType TEXT NOT NULL,      -- Harcama, Ödeme
+    Amount DECIMAL(10,2) NOT NULL,
+    Description TEXT,
+    MerchantName TEXT,                  -- Mağaza adı
+    TransactionDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (CreditCardId) REFERENCES CreditCards(Id)
+);
+```
+
 ## 🎯 Kullanım
 
 ### 1. İlk Kullanım
@@ -131,11 +193,39 @@ CREATE TABLE Transactions (
 3. Ana sayfaya yönlendirileceksiniz
 
 ### 3. Banka İşlemleri
-- **💳 Hesap Aç:** Yeni banka hesabı açın
+- **💳 Hesap Aç:** 
+  - Vadeli/Vadesiz hesap seçimi
+  - Vade süresi belirleme (Vadeli için)
+  - Faiz oranı seçimi
+  - Başlangıç tutarı girme
+  - Otomatik vade sonu hesaplama
 - **💰 Para Yatır:** Hesabınıza para yatırın
 - **💸 Para Çek:** Hesabınızdan para çekin
-- **🔄 Para Transfer:** Hesaplar arası transfer yapın
-- **📊 Hesap Bilgileri:** Bakiye ve işlem geçmişini görün
+- **🔄 Gelişmiş Para Transfer:** 
+  - 📋 Hesap numarası kopyala/yapıştır
+  - 👤 Alıcının ismini otomatik görüntüleme
+  - ✅ Transfer öncesi onaylama ekranı
+- **📊 Hesap Bilgileri:** 
+  - 📋 Hesap numarası kopyalama
+  - 📊 Detaylı bakiye ve işlem geçmişi
+  - 📅 Vadeli hesap detayları
+
+### 4. Kredi Kartı İşlemleri
+- **📝 Kredi Kartı Başvurusu:**
+  - Yeni kart talep etme
+  - Limit belirleme
+  - Otomatik kart numarası oluşturma
+- **💰 Kredi Kartı Ödeme:**
+  - Mevcut borç görüntüleme
+  - Borç ödeme işlemi
+- **🛒 Kredi Kartı Harcama:**
+  - Alışveriş simülasyonu
+  - Mağaza bilgisi girme
+  - Harcama geçmişi takibi
+- **📊 Kredi Kartı Yönetimi:**
+  - Tüm kartları görüntüleme
+  - Limit ve borç durumu
+  - Faiz oranı bilgileri
 
 ## 🔧 Geliştirme
 
@@ -180,9 +270,10 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosy
 
 ## 👥 Geliştiriciler
 
-- **Ana Geliştirici:** [İsminiz]
-- **Email:** [email@example.com]
-- **GitHub:** [@kullaniciadi]
+- **Ana Geliştirici:** Samet Çiftci
+- **Email:** scsametciftci@gmail.com
+- **GitHub:** [@SAME1T]
+- **Proje:** Smart Banking Automation v1.1.0
 
 ## 🙏 Teşekkürler
 
@@ -191,6 +282,26 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosy
 - Windows Forms geliştiricileri
 
 ## 📈 Versiyon Geçmişi
+
+### v1.1.0 (2025)
+- ✅ **Gelişmiş Vadeli Hesap Sistemi**
+  - 📅 Vade süresi seçimi (1-24 ay)
+  - 💰 Faiz oranı seçimi (%15-%28)
+  - 🎯 Otomatik vade sonu hesaplama
+  - 💵 Başlangıç tutarı özelliği
+- ✅ **Kredi Kartı İşlemleri**
+  - 📝 Kredi kartı başvuru sistemi
+  - 💰 Kredi kartı ödeme işlemleri
+  - 🛒 Kredi kartı harcama sistemi
+  - 📊 Kredi kartı yönetim paneli
+- ✅ **Gelişmiş Transfer Sistemi**
+  - 📥 Hesap numarası yapıştırma özelliği
+  - 👤 Alıcının ismini otomatik gösterme
+  - ✅ Transfer öncesi detaylı onaylama
+- ✅ **Kullanıcı Deneyimi İyileştirmeleri**
+  - 📋 Hesap numarası kopyalama özellikleri
+  - 🎨 Gelişmiş UI tasarımı
+  - 📊 Detaylı bilgi panelleri
 
 ### v1.0.0 (2024)
 - ✅ Kullanıcı kayıt/giriş sistemi
@@ -202,4 +313,4 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosy
 
 💡 **İpucu:** Daha fazla yardım için GitHub Issues bölümünü kullanabilirsiniz.
 
-🏦 **Smart Banking** - Modern bankacılık deneyimi!
+🏦 **Smart Banking v1.1.0** - Gelişmiş vadeli hesap ve kredi kartı sistemi ile modern bankacılık deneyimi!
