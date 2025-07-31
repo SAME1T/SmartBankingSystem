@@ -10,6 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Forms\" />
+    <Folder Include="Data\" />
+    <Folder Include="Config\" />
+    <Folder Include="Lib\" />
   </ItemGroup>
 
 </Project>

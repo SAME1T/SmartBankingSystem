@@ -1,3 +1,5 @@
+using SmartBankingAutomation.Forms;
+
 namespace SmartBankingAutomation;
 
 static class Program

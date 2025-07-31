@@ -1,4 +1,4 @@
-namespace SmartBankingAutomation
+namespace SmartBankingAutomation.Forms
 {
     partial class LoginForm
     {
